@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "87805270454",
+    "project_id": "footyvision-ad189",
+    "storage_bucket": "footyvision-ad189.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87805270454:android:8e0caaf2546b260b91c917",
+        "android_client_info": {
+          "package_name": "com.example.footy_vision_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbQB63BKJdnXINipip_YwS1YrKY6RocEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
