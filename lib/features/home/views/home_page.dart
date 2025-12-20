@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/features/home/controllers/home_controller.dart';
-import 'package:go_router/go_router.dart';
 import 'widgets/top_menu.dart';
 import 'widgets/page_section.dart';
 
@@ -17,6 +16,8 @@ class _HomePageState extends State<HomePage> {
   static const double scrollAccelerationFactor = 2.0;
   late HomeController controller;
   bool _listenerInitialized = false;
+  static const String assetImagePath = 'images/footy-logo.jpg';
+  static const String assetBackgroundPath = 'images/background_1.jpg';
 
   @override
   void initState() {
@@ -24,15 +25,6 @@ class _HomePageState extends State<HomePage> {
     controller.addListener(_onControllerChange);
     super.initState();
   }
-
-  // @override
-  // void didUpdateWidget(HomePage oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   // CRUCIAL: If the URL changes while the widget is mounted (e.g., Back button pressed)
-  //   if (widget.initialSection != oldWidget.initialSection) {
-  //     controller.scrollToSection(widget.initialSection);
-  //   }
-  // }
 
   @override
   void dispose() {
@@ -61,15 +53,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     controller.sectionHeight = screenHeight;
-    const String homeSectionPath = 'inicio';
+    controller.expandedHeight = screenHeight;
+    //const String homeSectionPath = 'inicio';
 
-    // 2. Obtener la sección actual de la URL
-    final currentSectionFromUrl = GoRouter.of(context).state.uri.queryParameters['section'] ?? homeSectionPath;
+    final currentSectionFromUrl = widget.initialSection;
+    final bool isPresentation = currentSectionFromUrl.isEmpty;
 
-    // 3. Determinar la altura expandida según la sección
-    final bool isHome = currentSectionFromUrl == homeSectionPath;
-
-    final double appBarExpandedHeight = isHome ? 200.0 : 60.0;
+    //final bool isHome = currentSectionFromUrl == homeSectionPath;
 
     // Lógica crucial: Inicializar el listener solo después de la primera construcción
     if (!_listenerInitialized) {
@@ -80,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       // Se utiliza addPostFrameCallback para asegurar que el widget ya esté dibujado
       // antes de intentar hacer el scroll.
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        controller.scrollToSection(widget.initialSection);
+        controller.scrollToSection(widget.initialSection, context);
       });
 
       _listenerInitialized = true;
@@ -93,37 +83,42 @@ class _HomePageState extends State<HomePage> {
           controller: controller.scrollController,
           slivers: [
             SliverAppBar(
-              expandedHeight: 200,
-              collapsedHeight: 60,
+              expandedHeight: isPresentation ? controller.expandedHeight : controller.collapsedHeight,
+              collapsedHeight: controller.collapsedHeight,
+
               pinned: true,
-              title: TopMenuTitle(currentSection: controller.currentFragment, sections: controller.sections, onTap: controller.scrollToSection),
+              leading: !isPresentation ? Image.asset(assetImagePath, fit: BoxFit.contain, height: controller.collapsedHeight) : null,
+              title: TopMenuTitle(currentSection: controller.currentFragment, sections: controller.sections, onTap: (value) => controller.scrollToSection(value, context)),
               flexibleSpace: LayoutBuilder(
                 builder: (context, constraints) {
                   final currentHeight = constraints.biggest.height;
-                  final double minHeight = 60.0;
-                  final double maxHeight = isHome ? 200.0 : 60.0; // Usar la altura dinámica
+                  final double minHeight = controller.collapsedHeight;
+                  final double maxHeight = isPresentation ? controller.expandedHeight : controller.collapsedHeight;
 
                   final collapseFactor = (currentHeight - minHeight) / (maxHeight - minHeight);
-                  final opacity = !isHome ? 1.0 : clampDouble(collapseFactor, 0.0, 1.0);
+                  final opacity = !isPresentation ? 1.0 : clampDouble(collapseFactor, 0.0, 1.0);
 
-                  const Color startColor = Colors.blueGrey;
-                  const Color endColor = Colors.blue;
-                  final Color backgroundColor = !isHome ? startColor : Color.lerp(startColor, endColor, opacity)!;
-                  return Container(
-                    color: backgroundColor,
-                    child: FlexibleSpaceBar(
-                      title: Opacity(
+                  const Color startColor = Colors.white;
+                  const Color endColor = Colors.white;
+                  final Color backgroundColor = !isPresentation ? startColor : Color.lerp(startColor, endColor, opacity)!;
+                  return FlexibleSpaceBar(
+                    collapseMode: CollapseMode.parallax,
+                    background: isPresentation ? Image.asset(assetBackgroundPath, fit: BoxFit.cover) : null,
+                    title: Center(
+                      child: Opacity(
                         opacity: opacity,
-                        child: const Text('Bienvenido', style: TextStyle(color: Colors.white)),
+                        child: Image.asset(assetImagePath, fit: BoxFit.contain, alignment: Alignment.center, height: 400),
                       ),
-                      centerTitle: true,
                     ),
+                    centerTitle: true,
                   );
                 },
               ),
             ),
             SliverList(
-              delegate: SliverChildListDelegate(controller.sections.map((s) => PageSection(title: s.title, color: s.color, height: screenHeight)).toList()),
+              delegate: SliverChildListDelegate(
+                controller.sections.where((s) => s.fragment.isNotEmpty).map((s) => PageSection(title: s.title, color: s.color, height: screenHeight)).toList(),
+              ),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/core/models/page_section_model.dart';
 
@@ -12,11 +14,10 @@ class TopMenuTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final double logoOrTextOpacity = clampDouble(1.0 - collapseFactor, 0.0, 1.0);
     return Row(
       children: [
-        // Título Fijo
-        const Text('Mi Web Escalable', style: TextStyle(color: Colors.white)),
-        const Spacer(), // Empuja los botones a la derecha
+        // Empuja los botones a la derecha
         // 3. Generar los botones dinámicamente
         ...sections.map((section) {
           // Determina si esta sección es la activa

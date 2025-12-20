@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Footy Vision',
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      routerConfig: appRouter,
+      routerDelegate: appRouter.routerDelegate,
+      routeInformationParser: appRouter.routeInformationParser,
+      routeInformationProvider: appRouter.routeInformationProvider,
     );
   }
 }
