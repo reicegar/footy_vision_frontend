@@ -68,17 +68,18 @@ class HomeController with ChangeNotifier {
     scrollController.addListener(() {
       final currentOffset = scrollController.offset;
 
-      int baseIndex = (currentOffset / sectionHeight).floor();
-      final double relativeOffset = currentOffset % sectionHeight;
-      const double detectionThreshold = 1.0;
-      int targetSectionIndex;
+      // We calculate the 'center' of the viewport
+      // This ensures the menu only changes when the new section
+      // crosses the middle of the screen (50% visibility)
+      final double viewportCenter = currentOffset + (sectionHeight / 2);
 
-      if (relativeOffset / sectionHeight > detectionThreshold) {
-        targetSectionIndex = baseIndex + 1;
-      } else {
-        targetSectionIndex = baseIndex;
-      }
+      // Subtract the AppBar expansion space to align the math
+      final double appBarContraction = expandedHeight - collapsedHeight;
+      final double adjustedCenter = viewportCenter - appBarContraction;
 
+      int targetSectionIndex = (adjustedCenter / sectionHeight).floor();
+
+      // Bounds checking
       if (targetSectionIndex < 0) targetSectionIndex = 0;
       if (targetSectionIndex >= menuOptions.length) targetSectionIndex = menuOptions.length - 1;
 
@@ -86,12 +87,12 @@ class HomeController with ChangeNotifier {
 
       if (visibleSectionPath != _currentFragment) {
         _currentFragment = visibleSectionPath;
-
         final path = visibleSectionPath.isEmpty ? '/' : visibleSectionPath;
-        appRouter.replace(path);
-      }
 
-      notifyListeners();
+        // Use replace only if necessary to avoid constant URL jumping
+        appRouter.replace(path);
+        notifyListeners(); // This triggers the TopMenu to update its selectionRect
+      }
     });
   }
 

@@ -51,11 +51,17 @@ class _HomePageState extends State<HomePage> {
   // Control the animation speed of scrolling.
   void _handlePointerSignal(PointerSignalEvent event) {
     if (event is PointerScrollEvent) {
+      // 1. Calculate the new position based on how much you turned the wheel
       final double scrollDelta = event.scrollDelta.dy;
-
       final double newScrollOffset = controller.scrollController.offset + (scrollDelta * scrollAccelerationFactor);
 
-      controller.scrollController.animateTo(newScrollOffset, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      // 2. Use a very short duration (100ms-150ms).
+      // If it's too long (300ms), the wheel feels "heavy" and stops.
+      controller.scrollController.animateTo(
+        newScrollOffset.clamp(0, controller.scrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.decelerate, // Much smoother for mouse wheels
+      );
     }
   }
 
@@ -122,16 +128,32 @@ class _HomePageState extends State<HomePage> {
 
               return FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                background: isPresentation ? Opacity(opacity: 0.4, child: Image.asset(assetBackgroundPath, fit: BoxFit.cover)) : null,
-                title: isPresentation
-                    ? Opacity(
-                        opacity: opacity,
-                        child: Center(
-                          child: Image.asset(assetImagePath, fit: BoxFit.contain, alignment: Alignment.center, height: 400),
-                        ),
+                // Move the background image here to keep it behind the logo
+                background: isPresentation
+                    ? Stack(
+                        alignment: Alignment.center, // This ensures the logo stays centered
+                        children: [
+                          // Background photo
+                          Opacity(
+                            opacity: 0.4,
+                            child: Image.asset(assetBackgroundPath, fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+                          ),
+
+                          // Responsive Logo
+                          if (isPresentation)
+                            Opacity(
+                              opacity: opacity,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                // Use LayoutBuilder or Mediaquery to scale the logo
+                                width: MediaQuery.of(context).size.width * 0.6, // 60% of screen width
+                                constraints: const BoxConstraints(maxWidth: 600, minWidth: 200),
+                                child: Image.asset(assetImagePath, fit: BoxFit.contain),
+                              ),
+                            ),
+                        ],
                       )
                     : null,
-                centerTitle: true,
               );
             },
           ),
@@ -149,26 +171,27 @@ class _HomePageState extends State<HomePage> {
     return ValueListenableBuilder(
       valueListenable: controller.isCollapsed,
       builder: (context, isCollapsed, child) {
+        // LOGIC FIX: Show logo if header is collapsed OR if we are NOT on a home-related section
+        // This ensures that when you click "Players", the logo appears immediately.
+        final bool shouldShowLogo = isCollapsed || ![Routes.home, Routes.contactUs, Routes.services].contains(path);
+
         return Container(
           height: controller.collapsedHeight,
+          // Match your logic: transparent on home/services/contact, black on static pages
           color: isHome ? Colors.transparent : FColors.black,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
-            spacing: 10,
             children: [
-              if (isCollapsed)
-                Image.asset(
-                  assetImagePath,
-                  height: 40, // Logo pequeño para el header colapsado
-                  fit: BoxFit.contain,
+              if (shouldShowLogo)
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Image.asset(assetImagePath, height: 40, fit: BoxFit.contain),
                 ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TopMenu(
-                  currentSection: path,
-                  goTo: (value) {
-                    onTap(value);
-                  },
+              Expanded(
+                // Use Expanded to ensure menu fills space correctly
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TopMenu(currentSection: path, goTo: (value) => onTap(value)),
                 ),
               ),
             ],
