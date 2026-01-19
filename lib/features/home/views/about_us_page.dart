@@ -1,6 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:footy_vision_frontend/shared/colors.dart';
+import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -105,7 +104,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(-travel * (1 - _scrollProgress), 0),
             child: Container(
               width: 400, // Control exactly how wide the text area is
-              child: _buildVisionText(130, TextAlign.right),
+              child: _buildVisionText(130, TextAlign.center),
             ),
           ),
 
@@ -157,7 +156,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
       // Ensure it has a defined area to fill
       width: double.infinity,
       child: FittedBox(
-        fit: BoxFit.scaleDown, // This is the secret to scaling instead of wrapping
+        fit: BoxFit.scaleDown,
         alignment: align == TextAlign.left ? Alignment.centerLeft : Alignment.center,
         child: Text(
           'OUR\nVISION',
@@ -165,9 +164,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
           style: TextStyle(
             color: FColors.black,
             fontSize: maxSize, // 130
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.bold,
             height: 0.9,
-            letterSpacing: -4,
+            // letterSpacing: -4,
           ),
         ),
       ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:footy_vision_frontend/shared/colors.dart';
+import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:footy_vision_frontend/shared/menu_handler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopMenu extends StatefulWidget {
   final String currentSection;
   final Function(String route) goTo;
+  final bool drawer;
 
-  const TopMenu({super.key, required this.currentSection, required this.goTo});
+  const TopMenu({super.key, required this.currentSection, required this.goTo, this.drawer = false});
 
   @override
   State<TopMenu> createState() => _TopMenuState();
@@ -44,7 +45,7 @@ class _TopMenuState extends State<TopMenu> {
 
     final selectionRect = _getSelectionRect();
 
-    return Stack(
+    Widget menuContent = Stack(
       children: [
         if (selectionRect != null)
           AnimatedPositioned(
@@ -57,37 +58,49 @@ class _TopMenuState extends State<TopMenu> {
             child: CustomPaint(painter: CornerBorderPainter(borderColor: FColors.orange, borderLength: 10.0, borderWidth: 2.0)),
           ),
 
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: options.map((section) {
-            final bool isSelected = section.fragment == widget.currentSection;
-            final bool isHovered = section.fragment == hoveredRoute;
-            return Container(
-              key: _keys[section.fragment], // Asignamos la llave aquí
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: TextButton(
-                onHover: (value) {
-                  setState(() {
-                    hoveredRoute = value ? section.fragment : null;
-                  });
-                },
-                style: TextButton.styleFrom(shadowColor: Colors.transparent, overlayColor: Colors.transparent, splashFactory: NoSplash.splashFactory),
-                onPressed: () => widget.goTo(section.fragment),
-                child: Text(
-                  section.title,
-                  style: GoogleFonts.oswald(
-                    color: isSelected || isHovered ? FColors.orange : Colors.white70,
-                    //fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                    fontSize: 18,
-                  ),
-                ),
+        if (widget.drawer)
+          Column(
+            spacing: 10,
+            children: [
+              DrawerHeader(
+                child: Center(child: Image.asset(FImage.assetImagePath, height: 40, fit: BoxFit.contain)),
               ),
-            );
-          }).toList(),
-        ),
+              ..._options,
+            ],
+          )
+        else
+          Row(mainAxisSize: MainAxisSize.min, children: _options),
       ],
     );
+
+    return widget.drawer ? Drawer(backgroundColor: FColors.black, child: menuContent) : menuContent;
   }
+
+  List<Container> get _options => menuHandler.options.map((section) {
+    final bool isSelected = section.fragment == widget.currentSection;
+    final bool isHovered = section.fragment == hoveredRoute;
+    return Container(
+      key: _keys[section.fragment],
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: TextButton(
+        onHover: (value) {
+          setState(() {
+            hoveredRoute = value ? section.fragment : null;
+          });
+        },
+        style: TextButton.styleFrom(shadowColor: Colors.transparent, overlayColor: Colors.transparent, splashFactory: NoSplash.splashFactory),
+        onPressed: () => widget.goTo(section.fragment),
+        child: Text(
+          section.title,
+          style: GoogleFonts.oswald(
+            color: isSelected || isHovered ? FColors.orange : Colors.white70,
+            //fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontSize: 18,
+          ),
+        ),
+      ),
+    );
+  }).toList();
 }
 
 class CornerBorderPainter extends CustomPainter {
@@ -104,21 +117,20 @@ class CornerBorderPainter extends CustomPainter {
       ..strokeWidth = borderWidth
       ..style = PaintingStyle.stroke;
 
-    // Esquinas visibles más largas
     Path path = Path()
-      // Esquina superior izquierda
+      // corner top left
       ..moveTo(0, borderLength)
       ..lineTo(0, 0)
       ..lineTo(borderLength, 0)
-      // Esquina superior derecha
+      // corner top right
       ..moveTo(size.width - borderLength, 0)
       ..lineTo(size.width, 0)
       ..lineTo(size.width, borderLength)
-      // Esquina inferior derecha
+      // corner bottom right
       ..moveTo(size.width, size.height - borderLength)
       ..lineTo(size.width, size.height)
       ..lineTo(size.width - borderLength, size.height)
-      // Esquina inferior izquierda
+      // corner bottom left
       ..moveTo(borderLength, size.height)
       ..lineTo(0, size.height)
       ..lineTo(0, size.height - borderLength);

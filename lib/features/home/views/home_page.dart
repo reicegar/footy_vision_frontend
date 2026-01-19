@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/features/home/controllers/home_controller.dart';
 import 'package:footy_vision_frontend/router/routes.dart';
-import 'package:footy_vision_frontend/shared/colors.dart';
+import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:footy_vision_frontend/shared/top_menu.dart';
 
 // Control all pages to display in the website.
@@ -18,8 +18,6 @@ class _HomePageState extends State<HomePage> {
   static const double scrollAccelerationFactor = 0.5;
   late HomeController controller;
   bool _listenerInitialized = false;
-  static const String assetImagePath = 'images/footy-logo.jpg';
-  static const String assetBackgroundPath = 'images/background_1.jpg';
 
   bool isHome = false;
 
@@ -92,10 +90,16 @@ class _HomePageState extends State<HomePage> {
     return Listener(
       onPointerSignal: _handlePointerSignal,
       child: Scaffold(
+        drawer: TopMenu(currentSection: currentSectionFromUrl, goTo: (value) => _navigationHandler(value), drawer: true),
         body: Stack(
           children: [
             IndexedStack(index: isHome ? 0 : 1, children: [homeSectionsPage(isPresentation, context, screenHeight), _buildStaticPage(currentSectionFromUrl)]),
-            Positioned(top: 0, left: 0, right: 0, child: _buildPersistentHeader(currentSectionFromUrl, isHome, (value) => _navigationHandler(value))),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Material(color: Colors.transparent, elevation: 0, child: _buildPersistentHeader(currentSectionFromUrl, isHome, (value) => _navigationHandler(value))),
+            ),
           ],
         ),
       ),
@@ -107,6 +111,7 @@ class _HomePageState extends State<HomePage> {
       controller: controller.scrollController,
       slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
           expandedHeight: controller.expandedHeight,
           collapsedHeight: controller.collapsedHeight,
           pinned: true,
@@ -136,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                           // Background photo
                           Opacity(
                             opacity: 0.4,
-                            child: Image.asset(assetBackgroundPath, fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+                            child: Image.asset(FImage.assetBackgroundPath, fit: BoxFit.cover, width: double.infinity, height: double.infinity),
                           ),
 
                           // Responsive Logo
@@ -148,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                                 // Use LayoutBuilder or Mediaquery to scale the logo
                                 width: MediaQuery.of(context).size.width * 0.6, // 60% of screen width
                                 constraints: const BoxConstraints(maxWidth: 600, minWidth: 200),
-                                child: Image.asset(assetImagePath, fit: BoxFit.contain),
+                                child: Image.asset(FImage.assetImagePath, fit: BoxFit.contain),
                               ),
                             ),
                         ],
@@ -168,34 +173,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPersistentHeader(String path, bool isHome, Function(String value) onTap) {
-    return ValueListenableBuilder(
-      valueListenable: controller.isCollapsed,
-      builder: (context, isCollapsed, child) {
-        // LOGIC FIX: Show logo if header is collapsed OR if we are NOT on a home-related section
-        // This ensures that when you click "Players", the logo appears immediately.
-        final bool shouldShowLogo = isCollapsed || ![Routes.home, Routes.contactUs, Routes.services].contains(path);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isMobile = MediaQuery.of(context).size.width < 850;
+        return ValueListenableBuilder(
+          valueListenable: controller.isCollapsed,
+          builder: (context, isCollapsed, child) {
+            // LOGIC FIX: Show logo if header is collapsed OR if we are NOT on a home-related section
+            // This ensures that when you click "Players", the logo appears immediately.
+            final bool shouldShowLogo = isCollapsed || ![Routes.home, Routes.contactUs, Routes.services].contains(path);
 
-        return Container(
-          height: controller.collapsedHeight,
-          // Match your logic: transparent on home/services/contact, black on static pages
-          color: isHome ? Colors.transparent : FColors.black,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: [
-              if (shouldShowLogo)
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Image.asset(assetImagePath, height: 40, fit: BoxFit.contain),
-                ),
-              Expanded(
-                // Use Expanded to ensure menu fills space correctly
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TopMenu(currentSection: path, goTo: (value) => onTap(value)),
-                ),
+            return Container(
+              height: controller.collapsedHeight,
+              // Match your logic: transparent on home/services/contact, black on static pages
+              color: isHome ? Colors.transparent : FColors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  if (shouldShowLogo)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Image.asset(FImage.assetImagePath, height: 40, fit: BoxFit.contain),
+                    ),
+                  if (isMobile)
+                    Builder(
+                      builder: (context) => IconButton(
+                        icon: const Icon(Icons.menu, color: Colors.white, size: 28),
+                        splashRadius: 25,
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
+                    )
+                  else
+                    Expanded(
+                      // Use Expanded to ensure menu fills space correctly
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TopMenu(currentSection: path, goTo: (value) => onTap(value)),
+                      ),
+                    ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
