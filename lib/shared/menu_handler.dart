@@ -19,8 +19,8 @@ class MenuHandler {
   void initialise() {
     options.addAll([
       OptionModel(title: 'Home', fragment: Routes.home),
-      OptionModel(title: 'Contact Us', fragment: Routes.contactUs),
       OptionModel(title: 'Services', fragment: Routes.services),
+      OptionModel(title: 'Contact Us', fragment: Routes.contactUs),
       OptionModel(title: 'Players', fragment: Routes.players),
     ]);
   }

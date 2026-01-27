@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/core/models/option_model.dart';
-import 'package:footy_vision_frontend/features/home/views/about_us_page.dart';
-import 'package:footy_vision_frontend/features/home/views/contact_us_page.dart';
-import 'package:footy_vision_frontend/features/home/views/services_page.dart';
 import 'package:footy_vision_frontend/router/app_router.dart';
 import 'package:footy_vision_frontend/router/routes.dart';
 import 'package:footy_vision_frontend/shared/menu_handler.dart';
@@ -94,10 +91,6 @@ class HomeController with ChangeNotifier {
         notifyListeners(); // This triggers the TopMenu to update its selectionRect
       }
     });
-  }
-
-  List<Widget> getPages(double height) {
-    return [AboutUsPage(height: height, scrollController: scrollController), ContactUsPage(height: height), ServicesPage(height: height)];
   }
 
   @override

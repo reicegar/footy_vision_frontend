@@ -92,66 +92,103 @@ class _AboutUsPageState extends State<AboutUsPage> {
   }
 
   Widget _buildDesktopLayout(double travel) {
-    return Center(
-      // Center the tight group
-      child: Row(
-        mainAxisSize: MainAxisSize.min, // THIS IS KEY: Don't let the row expand
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // LEFT SIDE: OUR VISION
-          // We use a fixed width or a flexible with a smaller constraint
-          _animatedElement(
-            offset: Offset(-travel * (1 - _scrollProgress), 0),
-            child: Container(
-              width: 400, // Control exactly how wide the text area is
-              child: _buildVisionText(130, TextAlign.center),
-            ),
-          ),
+    final double topPart = CurveTween(curve: const Interval(0.0, 0.6, curve: Curves.easeOut)).transform(_scrollProgress);
 
-          const SizedBox(width: 40), // The exact gap you want
-          // RIGHT SIDE: YouTube
-          _animatedElement(
-            offset: Offset(travel * (1 - _scrollProgress), 0),
-            child: Container(
-              width: 600, // Control exactly how wide the video is
-              child: _buildVideoPlayer(),
+    final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min, // THIS IS KEY: Don't let the row expand
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // LEFT SIDE: OUR VISION
+              // We use a fixed width or a flexible with a smaller constraint
+              _animatedOpacityElement(
+                progress: topPart,
+                offset: Offset(-travel * (1 - topPart), 0),
+                child: SizedBox(
+                  width: 400, // Control exactly how wide the text area is
+                  child: _buildVisionText(title: 'OUR\nVISION', maxSize: 130, align: TextAlign.center, textColor: FColors.black),
+                ),
+              ),
+
+              const SizedBox(width: 40), // The exact gap you want
+              // RIGHT SIDE: YouTube
+              _animatedOpacityElement(
+                progress: topPart,
+                offset: Offset(travel * (1 - topPart), 0),
+                child: SizedBox(
+                  width: 600, // Control exactly how wide the video is
+                  child: _buildVideoPlayer(),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 50),
+          AnimatedLine(progress: bottomPart),
+          const SizedBox(height: 50),
+          _animatedOpacityElement(
+            progress: bottomPart,
+            offset: Offset(0, -travel * (1 - bottomPart)),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: _buildVisionText(title: 'GET IN TOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
+          const SizedBox(height: 40),
+          _animatedOpacityElement(progress: bottomPart, offset: Offset(0, -travel * (1 - bottomPart)), child: _buildGetInTouch()),
         ],
       ),
     );
   }
 
   Widget _buildMobileLayout(double travel) {
+    final double topPart = CurveTween(curve: const Interval(0.0, 0.6, curve: Curves.easeOut)).transform(_scrollProgress);
+
+    final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
+
     return SingleChildScrollView(
       // Added to ensure internal constraints don't break
       physics: const NeverScrollableScrollPhysics(), // Let the main controller handle it
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Text coming from TOP
-          _animatedElement(
-            offset: Offset(0, -travel * (1 - _scrollProgress)),
-            child: Padding(padding: const EdgeInsets.only(bottom: 20), child: _buildVisionText(80, TextAlign.center)),
+          _animatedOpacityElement(
+            progress: topPart,
+            offset: Offset(0, -travel * (1 - topPart)),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: _buildVisionText(title: 'OUR\nVISION', maxSize: 80, align: TextAlign.center, textColor: FColors.black),
+            ),
           ),
-
           const SizedBox(height: 20),
-
-          // Video coming from BOTTOM
-          _animatedElement(offset: Offset(0, travel * (1 - _scrollProgress)), child: _buildVideoPlayer()),
+          _animatedOpacityElement(progress: topPart, offset: Offset(0, travel * (1 - topPart)), child: _buildVideoPlayer()),
+          const SizedBox(height: 50),
+          AnimatedLine(progress: topPart),
+          const SizedBox(height: 50),
+          _animatedOpacityElement(
+            progress: bottomPart,
+            offset: Offset(0, -travel * (1 - bottomPart)),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: _buildVisionText(title: 'GET IN\nTOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _animatedElement({required Offset offset, required Widget child}) {
+  Widget _animatedOpacityElement({required double progress, required Offset offset, required Widget child}) {
     return Opacity(
-      opacity: _scrollProgress,
+      opacity: progress,
       child: Transform.translate(offset: offset, child: child),
     );
   }
 
-  Widget _buildVisionText(double maxSize, TextAlign align) {
+  Widget _buildVisionText({String? title, double? maxSize, TextAlign? align, Color? textColor}) {
     return SizedBox(
       // Ensure it has a defined area to fill
       width: double.infinity,
@@ -159,14 +196,13 @@ class _AboutUsPageState extends State<AboutUsPage> {
         fit: BoxFit.scaleDown,
         alignment: align == TextAlign.left ? Alignment.centerLeft : Alignment.center,
         child: Text(
-          'OUR\nVISION',
+          title ?? 'TITLE',
           textAlign: align,
           style: TextStyle(
-            color: FColors.black,
+            color: textColor,
             fontSize: maxSize, // 130
             fontWeight: FontWeight.bold,
             height: 0.9,
-            // letterSpacing: -4,
           ),
         ),
       ),
@@ -195,4 +231,104 @@ class _AboutUsPageState extends State<AboutUsPage> {
       },
     );
   }
+
+  Widget _buildGetInTouch() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile = constraints.maxWidth < 850;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: isMobile
+              ?
+          [
+        
+          ] : [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: Icon(Icons.video_camera_front_outlined, color: FColors.orange, size: 120),
+                          title: Text(
+                            'Smart A.I. Coverage',
+                            style: TextStyle(
+                              color: FColors.black,
+                              fontSize: 40, // 130
+                              fontWeight: FontWeight.bold,
+                              //height: 0.9,
+                            ),
+                          ),
+                          subtitle: Text('Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.'),
+                          isThreeLine: true,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          leading: Icon(Icons.movie_edit, color: FColors.orange, size: 120),
+                          title: Text('Multi-Angle Perspective'),
+                          subtitle: Text('Experience the match from every vantage point with our dedicated behind-the-goal cameras.'),
+                          isThreeLine: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: Icon(Icons.photo_camera_back_outlined, color: FColors.orange, size: 120),
+                          title: Text('Custom Highlights'),
+                          subtitle: Text('Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.'),
+                          isThreeLine: true,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          leading: Icon(Icons.monitor, color: FColors.orange, size: 120),
+                          title: Text('On-Demand Access'),
+                          subtitle: Text('Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.'),
+                          isThreeLine: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+        );
+      },
+    );
+  }
+}
+
+class AnimatedLine extends StatelessWidget {
+  final double progress;
+  final double width;
+
+  const AnimatedLine({super.key, required this.progress, this.width = double.infinity});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(size: Size(width, 2), painter: _LinePainter(progress));
+  }
+}
+
+class _LinePainter extends CustomPainter {
+  final double progress;
+  _LinePainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = FColors.orange
+      ..strokeWidth = 4.0
+      ..strokeCap = StrokeCap.round;
+
+    double centerX = size.width / 2;
+    // Calculate expansion from 0 to half-width based on progress
+    double halfWidth = (size.width / 2) * progress;
+
+    canvas.drawLine(Offset(centerX - halfWidth, size.height / 2), Offset(centerX + halfWidth, size.height / 2), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _LinePainter oldDelegate) => oldDelegate.progress != progress;
 }

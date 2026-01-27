@@ -5,6 +5,10 @@ import 'package:footy_vision_frontend/router/routes.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:footy_vision_frontend/shared/top_menu.dart';
 
+import 'about_us_page.dart';
+import 'contact_us_page.dart';
+import 'services_page.dart';
+
 // Control all pages to display in the website.
 class HomePage extends StatefulWidget {
   final String initialSection;
@@ -136,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                 // Move the background image here to keep it behind the logo
                 background: isPresentation
                     ? Stack(
-                        alignment: Alignment.center, // This ensures the logo stays centered
+                        alignment: Alignment.center,
                         children: [
                           // Background photo
                           Opacity(
@@ -163,9 +167,13 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-        SliverList(delegate: SliverChildListDelegate(controller.getPages(screenHeight))),
+        SliverList(delegate: SliverChildListDelegate(getPages(screenHeight))),
       ],
     );
+  }
+
+  List<Widget> getPages(double height) {
+    return [AboutUsPage(height: height, scrollController: controller.scrollController), ServicesPage(height: height), ContactUsPage(height: height)];
   }
 
   double clampDouble(double value, double min, double max) {
