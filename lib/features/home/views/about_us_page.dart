@@ -252,9 +252,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                             'Smart A.I. Coverage',
                             style: TextStyle(
                               color: FColors.black,
-                              fontSize: 40, // 130
+                              fontSize: 30, // 130
                               fontWeight: FontWeight.bold,
-                              //height: 0.9,
                             ),
                           ),
                           subtitle: Text('Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.'),
@@ -264,7 +263,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       Expanded(
                         child: ListTile(
                           leading: Icon(Icons.movie_edit, color: FColors.orange, size: 120),
-                          title: Text('Multi-Angle Perspective'),
+                          title: Text(
+                            'Multi-Angle Perspective',
+                            style: TextStyle(
+                              color: FColors.black,
+                              fontSize: 30, // 130
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           subtitle: Text('Experience the match from every vantage point with our dedicated behind-the-goal cameras.'),
                           isThreeLine: true,
                         ),
@@ -277,7 +283,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       Expanded(
                         child: ListTile(
                           leading: Icon(Icons.photo_camera_back_outlined, color: FColors.orange, size: 120),
-                          title: Text('Custom Highlights'),
+                          title: Text(
+                            'Custom Highlights',
+                            style: TextStyle(
+                              color: FColors.black,
+                              fontSize: 30, // 130
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           subtitle: Text('Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.'),
                           isThreeLine: true,
                         ),
@@ -285,7 +298,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       Expanded(
                         child: ListTile(
                           leading: Icon(Icons.monitor, color: FColors.orange, size: 120),
-                          title: Text('On-Demand Access'),
+                          title: Text(
+                            'On-Demand Access',
+                            style: TextStyle(
+                              color: FColors.black,
+                              fontSize: 30, // 130
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           subtitle: Text('Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.'),
                           isThreeLine: true,
                         ),
