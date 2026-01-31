@@ -29,6 +29,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     controller = HomeController();
     controller.addListener(_onControllerChange);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.initialSection.isNotEmpty && widget.initialSection != Routes.home) {
+        controller.scrollToSection(widget.initialSection, context);
+      }
+    });
     super.initState();
   }
 
@@ -53,18 +58,35 @@ class _HomePageState extends State<HomePage> {
   // Control the animation speed of scrolling.
   void _handlePointerSignal(PointerSignalEvent event) {
     if (event is PointerScrollEvent) {
-      // 1. Calculate the new position based on how much you turned the wheel
+      // 1. Calculate the target offset
       final double scrollDelta = event.scrollDelta.dy;
-      final double newScrollOffset = controller.scrollController.offset + (scrollDelta * scrollAccelerationFactor);
+      final double currentOffset = controller.scrollController.offset;
 
-      // 2. Use a very short duration (100ms-150ms).
-      // If it's too long (300ms), the wheel feels "heavy" and stops.
-      controller.scrollController.animateTo(
-        newScrollOffset.clamp(0, controller.scrollController.position.maxScrollExtent),
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.decelerate, // Much smoother for mouse wheels
-      );
+      // We increase the multiplier slightly for a "faster" feel
+      // or keep your 0.5 for more precision.
+      final double targetOffset = currentOffset + (scrollDelta * 1.2);
+
+      // 2. Clamp the value so we don't try to scroll into the abyss
+      final double maxScroll = controller.scrollController.position.maxScrollExtent;
+      final double clampedOffset = targetOffset.clamp(0.0, maxScroll);
+
+      // 3. Animate with a 'decelerate' or 'easeOutCubic' curve.
+      // This makes the start of the scroll feel responsive and the end feel soft.
+      controller.scrollController.animateTo(clampedOffset, duration: const Duration(milliseconds: 200), curve: Curves.easeOutCubic);
     }
+    // if (event is PointerScrollEvent) {
+    //   // 1. Calculate the new position based on how much you turned the wheel
+    //   final double scrollDelta = event.scrollDelta.dy;
+    //   final double newScrollOffset = controller.scrollController.offset + (scrollDelta * scrollAccelerationFactor);
+
+    //   // 2. Use a very short duration (100ms-150ms).
+    //   // If it's too long (300ms), the wheel feels "heavy" and stops.
+    //   controller.scrollController.animateTo(
+    //     newScrollOffset.clamp(0, controller.scrollController.position.maxScrollExtent),
+    //     duration: const Duration(milliseconds: 200),
+    //     curve: Curves.easeOutCubic, // Much smoother for mouse wheels
+    //   );
+    // }
   }
 
   void _navigationHandler(String fragment) {

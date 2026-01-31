@@ -31,7 +31,7 @@ class HomeController with ChangeNotifier {
       if (!scrollController.hasClients) return;
       if (sectionPath.isEmpty) {
         _currentFragment = sectionPath;
-        scrollController.animateTo(0.0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+        scrollController.animateTo(0.0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOutQuart);
         return;
       }
 
