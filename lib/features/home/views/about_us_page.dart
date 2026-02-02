@@ -77,7 +77,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
       color: Colors.white,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          bool isMobile = constraints.maxWidth < 850; // Increased threshold for better transition
+          bool isMobile = constraints.maxWidth < 850;
 
           return Center(
             child: Container(
@@ -110,7 +110,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 offset: Offset(-travel * (1 - topPart), 0),
                 child: SizedBox(
                   width: 400, // Control exactly how wide the text area is
-                  child: _buildVisionText(title: 'OUR\nVISION', maxSize: 130, align: TextAlign.center, textColor: FColors.black),
+                  child: _buildTitleText(title: 'OUR\nVISION', maxSize: 130, align: TextAlign.center, textColor: FColors.black),
                 ),
               ),
 
@@ -134,7 +134,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - bottomPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildVisionText(title: 'GET IN TOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
+              child: _buildTitleText(title: 'GET IN TOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
           const SizedBox(height: 40),
@@ -160,22 +160,22 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - topPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildVisionText(title: 'OUR\nVISION', maxSize: 80, align: TextAlign.center, textColor: FColors.black),
+              child: _buildTitleText(title: 'OUR VISION', maxSize: 24, align: TextAlign.center, textColor: FColors.black),
             ),
           ),
-          const SizedBox(height: 20),
           _animatedOpacityElement(progress: topPart, offset: Offset(0, travel * (1 - topPart)), child: _buildVideoPlayer()),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           AnimatedLine(progress: topPart),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           _animatedOpacityElement(
             progress: bottomPart,
             offset: Offset(0, -travel * (1 - bottomPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildVisionText(title: 'GET IN\nTOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
+              child: _buildTitleText(title: 'GET IN TOUCH', maxSize: 24, align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
+          _animatedOpacityElement(progress: bottomPart, offset: Offset(0, -travel * (1 - bottomPart)), child: _buildGetInTouch()),
         ],
       ),
     );
@@ -188,7 +188,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     );
   }
 
-  Widget _buildVisionText({String? title, double? maxSize, TextAlign? align, Color? textColor}) {
+  Widget _buildTitleText({String? title, double? maxSize, TextAlign? align, Color? textColor}) {
     return SizedBox(
       // Ensure it has a defined area to fill
       width: double.infinity,
@@ -236,83 +236,54 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isMobile = constraints.maxWidth < 850;
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: isMobile
-              ?
-          [
-        
-          ] : [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ListTile(
-                          leading: Icon(Icons.video_camera_front_outlined, color: FColors.orange, size: 120),
-                          title: Text(
-                            'Smart A.I. Coverage',
-                            style: TextStyle(
-                              color: FColors.black,
-                              fontSize: 30, // 130
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text('Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.'),
-                          isThreeLine: true,
-                        ),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          leading: Icon(Icons.movie_edit, color: FColors.orange, size: 120),
-                          title: Text(
-                            'Multi-Angle Perspective',
-                            style: TextStyle(
-                              color: FColors.black,
-                              fontSize: 30, // 130
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text('Experience the match from every vantage point with our dedicated behind-the-goal cameras.'),
-                          isThreeLine: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 50),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ListTile(
-                          leading: Icon(Icons.photo_camera_back_outlined, color: FColors.orange, size: 120),
-                          title: Text(
-                            'Custom Highlights',
-                            style: TextStyle(
-                              color: FColors.black,
-                              fontSize: 30, // 130
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text('Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.'),
-                          isThreeLine: true,
-                        ),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          leading: Icon(Icons.monitor, color: FColors.orange, size: 120),
-                          title: Text(
-                            'On-Demand Access',
-                            style: TextStyle(
-                              color: FColors.black,
-                              fontSize: 30, // 130
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text('Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.'),
-                          isThreeLine: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+        final tiles = [
+          FeatureTile(
+            isMobile: isMobile,
+            icon: Icons.video_camera_front_outlined,
+            title: 'Smart A.I. Coverage',
+            subtitle: 'Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.',
+          ),
+          FeatureTile(
+            isMobile: isMobile,
+            icon: Icons.movie_edit,
+            title: 'Multi-Angle Perspective',
+            subtitle: 'Experience the match from every vantage point with our dedicated behind-the-goal cameras.',
+          ),
+          FeatureTile(
+            isMobile: isMobile,
+            icon: Icons.photo_camera_back_outlined,
+            title: 'Custom Highlights',
+            subtitle: 'Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.',
+          ),
+          FeatureTile(
+            isMobile: isMobile,
+            icon: Icons.monitor,
+            title: 'On-Demand Access',
+            subtitle: 'Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.',
+          ),
+        ];
+
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: isMobile
+                ? tiles.map((tile) => Padding(padding: const EdgeInsets.only(bottom: 20), child: tile)).toList()
+                : [
+                    Row(
+                      children: [
+                        Expanded(child: tiles[0]),
+                        Expanded(child: tiles[1]),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    Row(
+                      children: [
+                        Expanded(child: tiles[2]),
+                        Expanded(child: tiles[3]),
+                      ],
+                    ),
+                  ],
+          ),
         );
       },
     );
@@ -351,4 +322,26 @@ class _LinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _LinePainter oldDelegate) => oldDelegate.progress != progress;
+}
+
+class FeatureTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final bool isMobile;
+
+  const FeatureTile({super.key, required this.icon, required this.title, required this.subtitle, required this.isMobile});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      isThreeLine: true,
+      leading: Icon(icon, color: FColors.orange, size: isMobile ? 60 : 120),
+      title: Text(
+        title,
+        style: TextStyle(color: FColors.black, fontSize: isMobile ? 20 : 30, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(subtitle, softWrap: true),
+    );
+  }
 }
