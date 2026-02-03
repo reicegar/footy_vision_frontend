@@ -1,0 +1,14 @@
+{
+    "aboutUs": "About us",
+    "@aboutUs": {
+        "description": "Title for about us"
+    },
+    "services": "Services",
+    "@services": {
+        "description": "Title for services"
+    },
+    "contactUs": "Contact us",
+    "@contactUs": {
+        "description": "Title for Contact us"
+    }
+}

@@ -91,7 +91,7 @@ class _TopMenuState extends State<TopMenu> {
         style: TextButton.styleFrom(shadowColor: Colors.transparent, overlayColor: Colors.transparent, splashFactory: NoSplash.splashFactory),
         onPressed: () => widget.goTo(section.fragment),
         child: Text(
-          section.title,
+          section.titleBuilder(context),
           style: GoogleFonts.oswald(
             color: isSelected || isHovered ? FColors.orange : Colors.white70,
             //fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,

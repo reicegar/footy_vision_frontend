@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/features/home/controllers/home_controller.dart';
 import 'package:footy_vision_frontend/router/routes.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
+import 'package:footy_vision_frontend/shared/menu_handler.dart';
 import 'package:footy_vision_frontend/shared/top_menu.dart';
 
 import 'about_us_page.dart';
@@ -19,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const double scrollAccelerationFactor = 0.5;
   late HomeController controller;
   bool _listenerInitialized = false;
 
@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     controller = HomeController();
+
     controller.addListener(_onControllerChange);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.initialSection.isNotEmpty && widget.initialSection != Routes.home) {
@@ -90,12 +91,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _navigationHandler(String fragment) {
+    MenuHandler().updateRoute(fragment);
     if ([Routes.home, Routes.contactUs, Routes.services].contains(fragment)) {
-      controller.menuHandler.updateRoute(fragment);
       controller.scrollToSection(fragment, context);
       return;
     }
-    controller.menuHandler.navigateTo(fragment);
+    MenuHandler().navigateTo(fragment);
   }
 
   @override

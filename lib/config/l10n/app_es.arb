@@ -1,0 +1,14 @@
+{
+    "aboutUs": "Sobre nosotros",
+    "@aboutUs": {
+        "description": "Título sobre nosotros"
+    },
+    "services": "Servicios",
+    "@services": {
+        "description": "Título sobre servicios"
+    },
+    "contactUs": "Contáctanos",
+    "@contactUs": {
+        "description": "Título sobre contacto"
+    }
+}

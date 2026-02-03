@@ -16,15 +16,7 @@ class HomeController with ChangeNotifier {
   String _currentFragment = '';
   String get currentFragment => _currentFragment;
 
-  late MenuHandler menuHandler;
-
-  List<OptionModel> get menuOptions => menuHandler.options.where((o) => [Routes.home, Routes.services, Routes.contactUs].contains(o.fragment)).toList();
-
   final ValueNotifier<bool> isCollapsed = ValueNotifier<bool>(false);
-
-  HomeController() {
-    menuHandler = MenuHandler();
-  }
 
   void scrollToSection(String sectionPath, BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -35,7 +27,7 @@ class HomeController with ChangeNotifier {
         return;
       }
 
-      final index = menuOptions.indexWhere((s) => s.fragment == sectionPath);
+      final index = MenuHandler().getScrollableFragments.indexWhere((s) => s == sectionPath);
 
       if (index != -1 && sectionHeight > 0) {
         double offset = 0.0;
@@ -78,9 +70,9 @@ class HomeController with ChangeNotifier {
 
       // Bounds checking
       if (targetSectionIndex < 0) targetSectionIndex = 0;
-      if (targetSectionIndex >= menuOptions.length) targetSectionIndex = menuOptions.length - 1;
+      if (targetSectionIndex >= MenuHandler().getScrollableFragments.length) targetSectionIndex = MenuHandler().getScrollableFragments.length - 1;
 
-      final visibleSectionPath = menuOptions[targetSectionIndex].fragment;
+      final visibleSectionPath = MenuHandler().getScrollableFragments[targetSectionIndex];
 
       if (visibleSectionPath != _currentFragment) {
         _currentFragment = visibleSectionPath;

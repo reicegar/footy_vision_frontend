@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:footy_vision_frontend/config/l10n/app_localizations.dart';
 import 'package:footy_vision_frontend/router/app_router.dart';
 import 'package:footy_vision_frontend/shared/app_theme.dart';
 
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
       routerDelegate: appRouter.routerDelegate,
       routeInformationParser: appRouter.routeInformationParser,
       routeInformationProvider: appRouter.routeInformationProvider,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:footy_vision_frontend/config/l10n/app_localizations.dart';
 import 'package:footy_vision_frontend/core/models/option_model.dart';
 import 'package:footy_vision_frontend/router/app_router.dart';
 import 'package:footy_vision_frontend/router/routes.dart';
@@ -5,25 +7,21 @@ import 'package:footy_vision_frontend/router/routes.dart';
 class MenuHandler {
   static final MenuHandler _instance = MenuHandler._internal();
 
-  MenuHandler._internal() {
-    initialise();
-  }
+  MenuHandler._internal();
 
   factory MenuHandler() => _instance;
 
   String _currentRoute = Routes.home;
   String get currentRoute => _currentRoute;
 
-  final options = <OptionModel>[];
+  List<OptionModel> options = [
+    OptionModel(titleBuilder: (context) => 'Home', fragment: Routes.home, navigationType: NavigationType.scroll),
+    OptionModel(titleBuilder: (context) => AppLocalizations.of(context)!.services, fragment: Routes.services, navigationType: NavigationType.scroll),
+    OptionModel(titleBuilder: (context) => AppLocalizations.of(context)!.contactUs, fragment: Routes.contactUs, navigationType: NavigationType.scroll),
+    OptionModel(titleBuilder: (context) => 'Players', fragment: Routes.players),
+  ];
 
-  void initialise() {
-    options.addAll([
-      OptionModel(title: 'Home', fragment: Routes.home),
-      OptionModel(title: 'Services', fragment: Routes.services),
-      OptionModel(title: 'Contact Us', fragment: Routes.contactUs),
-      OptionModel(title: 'Players', fragment: Routes.players),
-    ]);
-  }
+  List<String> get getScrollableFragments => options.where((o) => o.navigationType == NavigationType.scroll).map((o) => o.fragment).toList();
 
   void navigateTo(String route) {
     updateRoute(route);
