@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footy_vision_frontend/config/l10n/app_localizations.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -92,6 +93,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
   }
 
   Widget _buildDesktopLayout(double travel) {
+    final t = AppLocalizations.of(context)!;
     final double topPart = CurveTween(curve: const Interval(0.0, 0.6, curve: Curves.easeOut)).transform(_scrollProgress);
 
     final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
@@ -110,7 +112,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 offset: Offset(-travel * (1 - topPart), 0),
                 child: SizedBox(
                   width: 400, // Control exactly how wide the text area is
-                  child: _buildTitleText(title: 'OUR\nVISION', maxSize: 130, align: TextAlign.center, textColor: FColors.black),
+                  child: _buildTitleText(title: t.ourVision('n').toUpperCase(), maxSize: 130, align: TextAlign.center, textColor: FColors.black),
                 ),
               ),
 
@@ -134,7 +136,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - bottomPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildTitleText(title: 'GET IN TOUCH', maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
+              child: _buildTitleText(title: t.getInTouch.toUpperCase(), maxSize: 80, align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
           const SizedBox(height: 40),
@@ -145,6 +147,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
   }
 
   Widget _buildMobileLayout(double travel) {
+    final t = AppLocalizations.of(context)!;
     final double topPart = CurveTween(curve: const Interval(0.0, 0.6, curve: Curves.easeOut)).transform(_scrollProgress);
 
     final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
@@ -160,7 +163,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - topPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildTitleText(title: 'OUR VISION', maxSize: 24, align: TextAlign.center, textColor: FColors.black),
+              child: _buildTitleText(title: t.ourVision('other').toUpperCase(), maxSize: 24, align: TextAlign.center, textColor: FColors.black),
             ),
           ),
           _animatedOpacityElement(progress: topPart, offset: Offset(0, travel * (1 - topPart)), child: _buildVideoPlayer()),
@@ -172,7 +175,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - bottomPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildTitleText(title: 'GET IN TOUCH', maxSize: 24, align: TextAlign.center, textColor: FColors.orange),
+              child: _buildTitleText(title: t.getInTouch.toUpperCase(), maxSize: 24, align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
           _animatedOpacityElement(progress: bottomPart, offset: Offset(0, -travel * (1 - bottomPart)), child: _buildGetInTouch()),

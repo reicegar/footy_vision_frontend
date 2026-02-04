@@ -98,6 +98,12 @@ abstract class AppLocalizations {
     Locale('es'),
   ];
 
+  /// Title for home page
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
   /// Title for about us
   ///
   /// In en, this message translates to:
@@ -115,6 +121,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact us'**
   String get contactUs;
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'{paragraph, select, n{Our\nVision} other{Our Vision}}'**
+  String ourVision(String paragraph);
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'Get in touch'**
+  String get getInTouch;
 }
 
 class _AppLocalizationsDelegate

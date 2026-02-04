@@ -1,4 +1,8 @@
 {
+    "home": "Inicio",
+    "@home": {
+        "description": "Titulo de inicio"
+    },
     "aboutUs": "Sobre nosotros",
     "@aboutUs": {
         "description": "Título sobre nosotros"
@@ -10,5 +14,18 @@
     "contactUs": "Contáctanos",
     "@contactUs": {
         "description": "Título sobre contacto"
+    },
+    "ourVision": "{paragraph, select, n{Nuestra\nVisión} other{Nuestra Visión}}",
+    "@ourVision": {
+        "description": "Título de sección en la página sobre nosotros",
+        "placeholders": {
+            "paragraph": {
+                "type": "String"
+            }
+        }
+    },
+    "getInTouch": "Descubre más",
+    "@getInTouch": {
+        "description": "Título de sección en la página sobre nosotros"
     }
 }

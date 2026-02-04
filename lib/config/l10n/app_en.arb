@@ -1,4 +1,8 @@
 {
+    "home": "Home",
+    "@home": {
+        "description": "Title for home page"
+    },
     "aboutUs": "About us",
     "@aboutUs": {
         "description": "Title for about us"
@@ -10,5 +14,18 @@
     "contactUs": "Contact us",
     "@contactUs": {
         "description": "Title for Contact us"
+    },
+    "ourVision": "{paragraph, select, n{Our\nVision} other{Our Vision}}",
+    "@ourVision": {
+        "description": "Title of section for about us page",
+        "placeholders": {
+            "paragraph": {
+                "type": "String"
+            }
+        }
+    },
+    "getInTouch": "Get in touch",
+    "@getInTouch": {
+        "description": "Title of section for about us page"
     }
 }

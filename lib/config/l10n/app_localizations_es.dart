@@ -9,6 +9,9 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
+  String get home => 'Inicio';
+
+  @override
   String get aboutUs => 'Sobre nosotros';
 
   @override
@@ -16,4 +19,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get contactUs => 'Contáctanos';
+
+  @override
+  String ourVision(String paragraph) {
+    String _temp0 = intl.Intl.selectLogic(paragraph, {
+      'n': 'Nuestra\nVisión',
+      'other': 'Nuestra Visión',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get getInTouch => 'Descubre más';
 }
