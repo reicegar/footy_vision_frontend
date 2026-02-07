@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "home": "Home",
     "@home": {
         "description": "Title for home page"
@@ -27,5 +28,37 @@
     "getInTouch": "Get in touch",
     "@getInTouch": {
         "description": "Title of section for about us page"
+    },
+    "smartAICoverage": "Smart A.I. Coverage",
+    "@smartAICoverage": {
+        "description": "Title of section for about us page"
+    },
+    "subSmartAICoverage": "Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.",
+    "@subSmartAICoverage": {
+        "description": "Subtitle of Smart A.I. Coverage"
+    },
+    "multiAnglePerspective": "Multi-Angle Perspective",
+    "@multiAnglePerspective": {
+        "description": "Title of section for about us page"
+    },
+    "subMultiAnglePerspective": "Experience the match from every vantage point with our dedicated behind-the-goal cameras.",
+    "@subMultiAnglePerspective": {
+        "description": "Subtitle of Multi-Angle Perspective"
+    },
+    "customHighlights": "Custom Highlights",
+    "@customHighlights": {
+        "description": "Title of section for about us page"
+    },
+    "subCustomHighligths": "Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.",
+    "@subCustomHighligths": {
+        "description": "Subtitle of Custom Highlights"
+    },
+    "onDemandAccess": "On-Demand Access",
+    "@onDemandAccess": {
+        "description": "Title of section for about us page"
+    },
+    "subOnDemandAccess": "Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.",
+    "@subOnDemandAccess": {
+        "description": "Subtitle of On-Demand Access"
     }
 }

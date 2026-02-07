@@ -1,9 +1,7 @@
 // home_controller.dart
 
 import 'package:flutter/material.dart';
-import 'package:footy_vision_frontend/core/models/option_model.dart';
 import 'package:footy_vision_frontend/router/app_router.dart';
-import 'package:footy_vision_frontend/router/routes.dart';
 import 'package:footy_vision_frontend/shared/menu_handler.dart';
 
 class HomeController with ChangeNotifier {

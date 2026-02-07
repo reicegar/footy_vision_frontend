@@ -1,4 +1,5 @@
 {
+    "@@locale": "es",
     "home": "Inicio",
     "@home": {
         "description": "Titulo de inicio"
@@ -27,5 +28,37 @@
     "getInTouch": "Descubre más",
     "@getInTouch": {
         "description": "Título de sección en la página sobre nosotros"
+    },
+    "smartAICoverage": "Cobertura de IA Inteligente",
+    "@smartAICoverage": {
+        "description": "Descripción de cobertura de IA inteligente"
+    },
+    "subSmartAICoverage": "Análisis avanzado impulsado por IA",
+    "@subSmartAICoverage": {
+        "description": "Descripción secundaria de cobertura de IA inteligente"
+    },
+    "multiAnglePerspective": "Perspectiva de Múltiples Ángulos",
+    "@multiAnglePerspective": {
+        "description": "Descripción de perspectiva de múltiples ángulos"
+    },
+    "subMultiAnglePerspective": "Visualiza el partido desde diferentes perspectivas",
+    "@subMultiAnglePerspective": {
+        "description": "Descripción secundaria de perspectiva de múltiples ángulos"
+    },
+    "customHighlights": "Destacados Personalizados",
+    "@customHighlights": {
+        "description": "Descripción de destacados personalizados"
+    },
+    "subCustomHighligths": "Crea tus propios momentos destacados",
+    "@subCustomHighligths": {
+        "description": "Descripción secundaria de destacados personalizados"
+    },
+    "onDemandAccess": "Acceso Bajo Demanda",
+    "@onDemandAccess": {
+        "description": "Descripción de acceso bajo demanda"
+    },
+    "subOnDemandAccess": "Accede a cualquier contenido en cualquier momento",
+    "@subOnDemandAccess": {
+        "description": "Descripción secundaria de acceso bajo demanda"
     }
 }

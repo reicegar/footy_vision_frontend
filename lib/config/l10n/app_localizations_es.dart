@@ -31,4 +31,30 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get getInTouch => 'Descubre más';
+
+  @override
+  String get smartAICoverage => 'Cobertura de IA Inteligente';
+
+  @override
+  String get subSmartAICoverage => 'Análisis avanzado impulsado por IA';
+
+  @override
+  String get multiAnglePerspective => 'Perspectiva de Múltiples Ángulos';
+
+  @override
+  String get subMultiAnglePerspective =>
+      'Visualiza el partido desde diferentes perspectivas';
+
+  @override
+  String get customHighlights => 'Destacados Personalizados';
+
+  @override
+  String get subCustomHighligths => 'Crea tus propios momentos destacados';
+
+  @override
+  String get onDemandAccess => 'Acceso Bajo Demanda';
+
+  @override
+  String get subOnDemandAccess =>
+      'Accede a cualquier contenido en cualquier momento';
 }

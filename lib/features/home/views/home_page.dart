@@ -4,6 +4,7 @@ import 'package:footy_vision_frontend/features/home/controllers/home_controller.
 import 'package:footy_vision_frontend/router/routes.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:footy_vision_frontend/shared/menu_handler.dart';
+import 'package:footy_vision_frontend/shared/theme_toggle_button.dart';
 import 'package:footy_vision_frontend/shared/top_menu.dart';
 
 import 'about_us_page.dart';
@@ -125,7 +126,11 @@ class _HomePageState extends State<HomePage> {
               top: 0,
               left: 0,
               right: 0,
-              child: Material(color: Colors.transparent, elevation: 0, child: _buildPersistentHeader(currentSectionFromUrl, isHome, (value) => _navigationHandler(value))),
+              child: Material(
+                color: Colors.transparent,
+                elevation: 0,
+                child: IgnorePointer(ignoring: false, child: _buildPersistentHeader(currentSectionFromUrl, isHome, (value) => _navigationHandler(value))),
+              ),
             ),
           ],
         ),
@@ -142,7 +147,7 @@ class _HomePageState extends State<HomePage> {
           expandedHeight: controller.expandedHeight,
           collapsedHeight: controller.collapsedHeight,
           pinned: true,
-          backgroundColor: FColors.black,
+          backgroundColor: FColors.blackSoft,
           flexibleSpace: LayoutBuilder(
             builder: (context, constraints) {
               final currentHeight = constraints.biggest.height;
@@ -190,6 +195,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
+
         SliverList(delegate: SliverChildListDelegate(getPages(screenHeight))),
       ],
     );
@@ -217,7 +223,7 @@ class _HomePageState extends State<HomePage> {
             return Container(
               height: controller.collapsedHeight,
               // Match your logic: transparent on home/services/contact, black on static pages
-              color: isHome ? Colors.transparent : FColors.black,
+              color: isHome ? Colors.transparent : FColors.blackSoft,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
@@ -226,15 +232,16 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(right: 15.0),
                       child: Image.asset(FImage.assetImagePath, height: 40, fit: BoxFit.contain),
                     ),
-                  if (isMobile)
+                  if (isMobile) ...[
                     Builder(
                       builder: (context) => IconButton(
                         icon: const Icon(Icons.menu, color: Colors.white, size: 28),
                         splashRadius: 25,
                         onPressed: () => Scaffold.of(context).openDrawer(),
                       ),
-                    )
-                  else
+                    ),
+                    const Spacer(),
+                  ] else
                     Expanded(
                       // Use Expanded to ensure menu fills space correctly
                       child: Align(
@@ -242,6 +249,7 @@ class _HomePageState extends State<HomePage> {
                         child: TopMenu(currentSection: path, goTo: (value) => onTap(value)),
                       ),
                     ),
+                  const ThemeToggleButton(),
                 ],
               ),
             );

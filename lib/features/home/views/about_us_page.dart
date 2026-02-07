@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/config/l10n/app_localizations.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
+import 'package:footy_vision_frontend/shared/styles.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class AboutUsPage extends StatefulWidget {
 class _AboutUsPageState extends State<AboutUsPage> {
   double _scrollProgress = 0.0;
   late YoutubePlayerController _videoController;
+  bool _isVideoActive = false;
 
   @override
   void initState() {
@@ -98,7 +100,6 @@ class _AboutUsPageState extends State<AboutUsPage> {
 
     final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
     return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Row(
@@ -112,7 +113,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 offset: Offset(-travel * (1 - topPart), 0),
                 child: SizedBox(
                   width: 400, // Control exactly how wide the text area is
-                  child: _buildTitleText(title: t.ourVision('n').toUpperCase(), maxSize: 130, align: TextAlign.center, textColor: FColors.black),
+                  child: _buildTitleText(title: t.ourVision('n').toUpperCase(), maxSize: 130, align: TextAlign.center, textColor: FColors.blackSoft),
                 ),
               ),
 
@@ -154,7 +155,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
 
     return SingleChildScrollView(
       // Added to ensure internal constraints don't break
-      physics: const NeverScrollableScrollPhysics(), // Let the main controller handle it
+      //physics: const NeverScrollableScrollPhysics(), // Let the main controller handle it
       child: Column(
         children: [
           // Text coming from TOP
@@ -163,7 +164,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - topPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildTitleText(title: t.ourVision('other').toUpperCase(), maxSize: 24, align: TextAlign.center, textColor: FColors.black),
+              child: _buildTitleText(title: t.ourVision('other').toUpperCase(), align: TextAlign.center, textColor: FColors.blackSoft),
             ),
           ),
           _animatedOpacityElement(progress: topPart, offset: Offset(0, travel * (1 - topPart)), child: _buildVideoPlayer()),
@@ -175,7 +176,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             offset: Offset(0, -travel * (1 - bottomPart)),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: _buildTitleText(title: t.getInTouch.toUpperCase(), maxSize: 24, align: TextAlign.center, textColor: FColors.orange),
+              child: _buildTitleText(title: t.getInTouch.toUpperCase(), align: TextAlign.center, textColor: FColors.orange),
             ),
           ),
           _animatedOpacityElement(progress: bottomPart, offset: Offset(0, -travel * (1 - bottomPart)), child: _buildGetInTouch()),
@@ -201,12 +202,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
         child: Text(
           title ?? 'TITLE',
           textAlign: align,
-          style: TextStyle(
-            color: textColor,
-            fontSize: maxSize, // 130
-            fontWeight: FontWeight.bold,
-            height: 0.9,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold, color: textColor, fontSize: maxSize),
         ),
       ),
     );
@@ -216,19 +212,35 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         // If the width is narrow (Mobile), we don't let the video hit the edges
-        bool isNarrow = constraints.maxWidth < 600;
+        bool isNarrow = constraints.maxWidth < 850;
         double horizontalPadding = isNarrow ? 30.0 : 0.0;
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 30, offset: const Offset(0, 10))],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: YoutubePlayer(controller: _videoController, aspectRatio: 16 / 9),
-            ),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 30, offset: const Offset(0, 10))],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: YoutubePlayer(controller: _videoController, aspectRatio: 16 / 9),
+                ),
+              ),
+              if (!_isVideoActive)
+                Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isVideoActive = true; // Unlock video controls on tap
+                      });
+                    },
+                    // By not handling onVerticalDrag, the scroll continues to bubble up to your Page
+                    child: Container(color: Colors.transparent),
+                  ),
+                ),
+            ],
           ),
         );
       },
@@ -239,92 +251,37 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isMobile = constraints.maxWidth < 850;
+        final t = AppLocalizations.of(context)!;
         final tiles = [
-          FeatureTile(
-            isMobile: isMobile,
-            icon: Icons.video_camera_front_outlined,
-            title: 'Smart A.I. Coverage',
-            subtitle: 'Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.',
-          ),
-          FeatureTile(
-            isMobile: isMobile,
-            icon: Icons.movie_edit,
-            title: 'Multi-Angle Perspective',
-            subtitle: 'Experience the match from every vantage point with our dedicated behind-the-goal cameras.',
-          ),
-          FeatureTile(
-            isMobile: isMobile,
-            icon: Icons.photo_camera_back_outlined,
-            title: 'Custom Highlights',
-            subtitle: 'Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.',
-          ),
-          FeatureTile(
-            isMobile: isMobile,
-            icon: Icons.monitor,
-            title: 'On-Demand Access',
-            subtitle: 'Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.',
-          ),
+          FeatureTile(isMobile: isMobile, icon: Icons.video_camera_front_outlined, title: t.smartAICoverage, subtitle: t.subSmartAICoverage),
+          FeatureTile(isMobile: isMobile, icon: Icons.movie_edit, title: t.multiAnglePerspective, subtitle: t.subMultiAnglePerspective),
+          FeatureTile(isMobile: isMobile, icon: Icons.photo_camera_back_outlined, title: t.customHighlights, subtitle: t.subCustomHighligths),
+          FeatureTile(isMobile: isMobile, icon: Icons.monitor, title: t.onDemandAccess, subtitle: t.subOnDemandAccess),
         ];
 
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: isMobile
-                ? tiles.map((tile) => Padding(padding: const EdgeInsets.only(bottom: 20), child: tile)).toList()
-                : [
-                    Row(
-                      children: [
-                        Expanded(child: tiles[0]),
-                        Expanded(child: tiles[1]),
-                      ],
-                    ),
-                    const SizedBox(height: 50),
-                    Row(
-                      children: [
-                        Expanded(child: tiles[2]),
-                        Expanded(child: tiles[3]),
-                      ],
-                    ),
-                  ],
-          ),
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: isMobile
+              ? tiles.map((tile) => Padding(padding: const EdgeInsets.only(bottom: 20), child: tile)).toList()
+              : [
+                  Row(
+                    children: [
+                      Expanded(child: tiles[0]),
+                      Expanded(child: tiles[1]),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Row(
+                    children: [
+                      Expanded(child: tiles[2]),
+                      Expanded(child: tiles[3]),
+                    ],
+                  ),
+                ],
         );
       },
     );
   }
-}
-
-class AnimatedLine extends StatelessWidget {
-  final double progress;
-  final double width;
-
-  const AnimatedLine({super.key, required this.progress, this.width = double.infinity});
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(size: Size(width, 2), painter: _LinePainter(progress));
-  }
-}
-
-class _LinePainter extends CustomPainter {
-  final double progress;
-  _LinePainter(this.progress);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = FColors.orange
-      ..strokeWidth = 4.0
-      ..strokeCap = StrokeCap.round;
-
-    double centerX = size.width / 2;
-    // Calculate expansion from 0 to half-width based on progress
-    double halfWidth = (size.width / 2) * progress;
-
-    canvas.drawLine(Offset(centerX - halfWidth, size.height / 2), Offset(centerX + halfWidth, size.height / 2), paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _LinePainter oldDelegate) => oldDelegate.progress != progress;
 }
 
 class FeatureTile extends StatelessWidget {
@@ -337,14 +294,15 @@ class FeatureTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ListTile(
       isThreeLine: true,
       leading: Icon(icon, color: FColors.orange, size: isMobile ? 60 : 120),
       title: Text(
         title,
-        style: TextStyle(color: FColors.black, fontSize: isMobile ? 20 : 30, fontWeight: FontWeight.bold),
+        style: isMobile ? theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold) : theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(subtitle, softWrap: true),
+      subtitle: Text(subtitle, softWrap: true, style: isMobile ? theme.textTheme.bodyMedium : theme.textTheme.bodyLarge),
     );
   }
 }

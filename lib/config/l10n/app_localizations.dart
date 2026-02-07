@@ -133,6 +133,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get in touch'**
   String get getInTouch;
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'Smart A.I. Coverage'**
+  String get smartAICoverage;
+
+  /// Subtitle of Smart A.I. Coverage
+  ///
+  /// In en, this message translates to:
+  /// **'Our state-of-the-art AI cameras act as the primary lens, tracking the action automatically and with precision.'**
+  String get subSmartAICoverage;
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-Angle Perspective'**
+  String get multiAnglePerspective;
+
+  /// Subtitle of Multi-Angle Perspective
+  ///
+  /// In en, this message translates to:
+  /// **'Experience the match from every vantage point with our dedicated behind-the-goal cameras.'**
+  String get subMultiAnglePerspective;
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Highlights'**
+  String get customHighlights;
+
+  /// Subtitle of Custom Highlights
+  ///
+  /// In en, this message translates to:
+  /// **'Take control of your performance. Use the VEO platform to create, edit, and download your own personal highlight reels.'**
+  String get subCustomHighligths;
+
+  /// Title of section for about us page
+  ///
+  /// In en, this message translates to:
+  /// **'On-Demand Access'**
+  String get onDemandAccess;
+
+  /// Subtitle of On-Demand Access
+  ///
+  /// In en, this message translates to:
+  /// **'Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.'**
+  String get subOnDemandAccess;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/config/l10n/app_localizations.dart';
 import 'package:footy_vision_frontend/core/models/option_model.dart';
 import 'package:footy_vision_frontend/router/app_router.dart';

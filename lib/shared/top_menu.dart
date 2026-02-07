@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footy_vision_frontend/shared/constants.dart';
 import 'package:footy_vision_frontend/shared/menu_handler.dart';
+import 'package:footy_vision_frontend/shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopMenu extends StatefulWidget {
@@ -73,7 +74,7 @@ class _TopMenuState extends State<TopMenu> {
       ],
     );
 
-    return widget.drawer ? Drawer(backgroundColor: FColors.black, child: menuContent) : menuContent;
+    return widget.drawer ? Drawer(backgroundColor: FColors.blackSoft, child: menuContent) : menuContent;
   }
 
   List<Container> get _options => menuHandler.options.map((section) {
@@ -101,45 +102,4 @@ class _TopMenuState extends State<TopMenu> {
       ),
     );
   }).toList();
-}
-
-class CornerBorderPainter extends CustomPainter {
-  final Color borderColor;
-  final double borderWidth;
-  final double borderLength;
-
-  CornerBorderPainter({required this.borderColor, required this.borderWidth, required this.borderLength});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = borderColor
-      ..strokeWidth = borderWidth
-      ..style = PaintingStyle.stroke;
-
-    Path path = Path()
-      // corner top left
-      ..moveTo(0, borderLength)
-      ..lineTo(0, 0)
-      ..lineTo(borderLength, 0)
-      // corner top right
-      ..moveTo(size.width - borderLength, 0)
-      ..lineTo(size.width, 0)
-      ..lineTo(size.width, borderLength)
-      // corner bottom right
-      ..moveTo(size.width, size.height - borderLength)
-      ..lineTo(size.width, size.height)
-      ..lineTo(size.width - borderLength, size.height)
-      // corner bottom left
-      ..moveTo(borderLength, size.height)
-      ..lineTo(0, size.height)
-      ..lineTo(0, size.height - borderLength);
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
 }
