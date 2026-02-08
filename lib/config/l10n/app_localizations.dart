@@ -181,6 +181,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.'**
   String get subOnDemandAccess;
+
+  /// Title of section for services page
+  ///
+  /// In en, this message translates to:
+  /// **'Our Services'**
+  String get ourServices;
+
+  /// Subtitle of Our Services
+  ///
+  /// In en, this message translates to:
+  /// **'Every package includes: \nProfessional equipment setup, full match coverage and seamless digital delivery'**
+  String get subOurServices;
+
+  /// Title of Bronze Package
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze Package'**
+  String get bronzePackage;
+
+  /// Title of Silver Package
+  ///
+  /// In en, this message translates to:
+  /// **'Silver Package'**
+  String get silverPackage;
+
+  /// Title of Gold Package
+  ///
+  /// In en, this message translates to:
+  /// **'Gold Package'**
+  String get goldPackage;
+
+  /// Title of Platinum Package
+  ///
+  /// In en, this message translates to:
+  /// **'Platinum Package'**
+  String get platinumPackage;
+
+  /// No description provided for @bronzeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw Footage Only'**
+  String get bronzeSubtitle;
+
+  /// No description provided for @bronzePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'£130'**
+  String get bronzePrice;
+
+  /// No description provided for @bronzeFeat1.
+  ///
+  /// In en, this message translates to:
+  /// **'Match filmed using VEO 2 (A.I. sports camera)'**
+  String get bronzeFeat1;
+
+  /// No description provided for @bronzeFeat2.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-camera recording'**
+  String get bronzeFeat2;
+
+  /// No description provided for @bronzeFeat3.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw match footage (no edits, overlays, or replays)'**
+  String get bronzeFeat3;
+
+  /// No description provided for @bronzeFeat4.
+  ///
+  /// In en, this message translates to:
+  /// **'Suitable for training & review'**
+  String get bronzeFeat4;
+
+  /// No description provided for @bronzeFeat5.
+  ///
+  /// In en, this message translates to:
+  /// **'Suitable for training & review'**
+  String get bronzeFeat5;
+
+  /// No description provided for @bronzeFeat6.
+  ///
+  /// In en, this message translates to:
+  /// **'Local coverage (London & surrounding areas)'**
+  String get bronzeFeat6;
+
+  /// No description provided for @silverSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard Highlights & Match Edits'**
+  String get silverSubtitle;
+
+  /// No description provided for @silverPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'£250'**
+  String get silverPrice;
+
+  /// No description provided for @silverFeat1.
+  ///
+  /// In en, this message translates to:
+  /// **'3 camera recording (VEO 2 + 2 goal cameras)'**
+  String get silverFeat1;
+
+  /// No description provided for @silverFeat2.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited full match + 2 goal video'**
+  String get silverFeat2;
+
+  /// No description provided for @silverFeat3.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights video included'**
+  String get silverFeat3;
+
+  /// No description provided for @silverFeat4.
+  ///
+  /// In en, this message translates to:
+  /// **'Team lineups & scoreboard overlay'**
+  String get silverFeat4;
+
+  /// No description provided for @silverFeat5.
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-angle replays & goalscorer graphics'**
+  String get silverFeat5;
+
+  /// No description provided for @goldSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Multi-Cam + Commentary'**
+  String get goldSubtitle;
+
+  /// No description provided for @goldPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'£350'**
+  String get goldPrice;
+
+  /// No description provided for @goldFeat1.
+  ///
+  /// In en, this message translates to:
+  /// **'4/5-camera recording (VEO 2 video)'**
+  String get goldFeat1;
+
+  /// No description provided for @goldFeat2.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited full match (4 cams + camcorder)'**
+  String get goldFeat2;
+
+  /// No description provided for @goldFeat3.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights video included'**
+  String get goldFeat3;
+
+  /// No description provided for @goldFeat4.
+  ///
+  /// In en, this message translates to:
+  /// **'Team lineups, scoreboard & replays'**
+  String get goldFeat4;
+
+  /// No description provided for @goldFeat5.
+  ///
+  /// In en, this message translates to:
+  /// **'Goalscorer graphics & match visuals'**
+  String get goldFeat5;
+
+  /// No description provided for @goldFeat6.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights commentary included'**
+  String get goldFeat6;
+
+  /// No description provided for @platinumSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Media & Player Analytics'**
+  String get platinumSubtitle;
+
+  /// No description provided for @platinumPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'£450'**
+  String get platinumPrice;
+
+  /// No description provided for @platinumFeat1.
+  ///
+  /// In en, this message translates to:
+  /// **'4/5 camera premium recording setup'**
+  String get platinumFeat1;
+
+  /// No description provided for @platinumFeat2.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited full video included'**
+  String get platinumFeat2;
+
+  /// No description provided for @platinumFeat3.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights video included'**
+  String get platinumFeat3;
+
+  /// No description provided for @platinumFeat4.
+  ///
+  /// In en, this message translates to:
+  /// **'Full player statistics & replays'**
+  String get platinumFeat4;
+
+  /// No description provided for @platinumFeat5.
+  ///
+  /// In en, this message translates to:
+  /// **'Full player statistics & analytics'**
+  String get platinumFeat5;
+
+  /// No description provided for @platinumFeat6.
+  ///
+  /// In en, this message translates to:
+  /// **'Player profile videos & personalised playlists'**
+  String get platinumFeat6;
+
+  /// Label for enquire now button
+  ///
+  /// In en, this message translates to:
+  /// **'Enquire Now'**
+  String get enquireNow;
+
+  /// No description provided for @corporateEventsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Corporate & Company Football Events'**
+  String get corporateEventsTitle;
+
+  /// No description provided for @corporateEventsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'We also support company tournaments, internal leagues and corporate football events, including match filming, highlights and brand media delivery.'**
+  String get corporateEventsSub;
 }
 
 class _AppLocalizationsDelegate

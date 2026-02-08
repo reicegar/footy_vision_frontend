@@ -60,5 +60,165 @@
     "subOnDemandAccess": "Accede a cualquier contenido en cualquier momento",
     "@subOnDemandAccess": {
         "description": "Descripción secundaria de acceso bajo demanda"
+    },
+    "ourServices": "Nuestros Servicios",
+    "@ourServices": {
+        "description": "Título de sección para la página de servicios"
+    },
+    "subOurServices": "Cada paquete incluye: \n● Configuración profesional de equipos, cobertura completa de partidos y entrega digital sin interrupciones",
+    "@subOurServices": {
+        "description": "Subtítulo de Nuestros Servicios"
+    },
+    "bronzePackage": "Paquete Bronze",
+    "@bronzePackage": {
+        "description": "Nombre del paquete Bronze"
+    },
+    "silverPackage": "Paquete Plata",
+    "@silverPackage": {
+        "description": "Nombre del paquete Plata"
+    },
+    "goldPackage": "Paquete Oro",
+    "@goldPackage": {
+        "description": "Nombre del paquete Oro"
+    },
+    "platinumPackage": "Paquete Platino",
+    "@platinumPackage": {
+        "description": "Nombre del paquete Platino"
+    },
+    "bronzeSubtitle": "Inicio",
+    "@bronzeSubtitle": {
+        "description": "Subtítulo del paquete Bronze"
+    },
+    "bronzePrice": "Contactar",
+    "@bronzePrice": {
+        "description": "Precio del paquete Bronze"
+    },
+    "bronzeFeat1": "1 cámara",
+    "@bronzeFeat1": {
+        "description": "Característica 1 del paquete Bronze"
+    },
+    "bronzeFeat2": "Cobertura básica",
+    "@bronzeFeat2": {
+        "description": "Característica 2 del paquete Bronze"
+    },
+    "bronzeFeat3": "Análisis estándar",
+    "@bronzeFeat3": {
+        "description": "Característica 3 del paquete Bronze"
+    },
+    "bronzeFeat4": "Entrega en 48 horas",
+    "@bronzeFeat4": {
+        "description": "Característica 4 del paquete Bronze"
+    },
+    "bronzeFeat5": "Soporte básico",
+    "@bronzeFeat5": {
+        "description": "Característica 5 del paquete Bronze"
+    },
+    "bronzeFeat6": "1 edición",
+    "@bronzeFeat6": {
+        "description": "Característica 6 del paquete Bronze"
+    },
+    "silverSubtitle": "Profesional",
+    "@silverSubtitle": {
+        "description": "Subtítulo del paquete Plata"
+    },
+    "silverPrice": "Contactar",
+    "@silverPrice": {
+        "description": "Precio del paquete Plata"
+    },
+    "silverFeat1": "2 cámaras",
+    "@silverFeat1": {
+        "description": "Característica 1 del paquete Plata"
+    },
+    "silverFeat2": "Cobertura estándar",
+    "@silverFeat2": {
+        "description": "Característica 2 del paquete Plata"
+    },
+    "silverFeat3": "Análisis avanzado",
+    "@silverFeat3": {
+        "description": "Característica 3 del paquete Plata"
+    },
+    "silverFeat4": "Entrega en 24 horas",
+    "@silverFeat4": {
+        "description": "Característica 4 del paquete Plata"
+    },
+    "silverFeat5": "Soporte prioritario",
+    "@silverFeat5": {
+        "description": "Característica 5 del paquete Plata"
+    },
+    "goldSubtitle": "Premium",
+    "@goldSubtitle": {
+        "description": "Subtítulo del paquete Oro"
+    },
+    "goldPrice": "Contactar",
+    "@goldPrice": {
+        "description": "Precio del paquete Oro"
+    },
+    "goldFeat1": "4 cámaras",
+    "@goldFeat1": {
+        "description": "Característica 1 del paquete Oro"
+    },
+    "goldFeat2": "Cobertura 360°",
+    "@goldFeat2": {
+        "description": "Característica 2 del paquete Oro"
+    },
+    "goldFeat3": "Análisis IA completo",
+    "@goldFeat3": {
+        "description": "Característica 3 del paquete Oro"
+    },
+    "goldFeat4": "Entrega inmediata",
+    "@goldFeat4": {
+        "description": "Característica 4 del paquete Oro"
+    },
+    "goldFeat5": "Soporte 24/7",
+    "@goldFeat5": {
+        "description": "Característica 5 del paquete Oro"
+    },
+    "goldFeat6": "Ediciones ilimitadas",
+    "@goldFeat6": {
+        "description": "Característica 6 del paquete Oro"
+    },
+    "platinumSubtitle": "Empresarial",
+    "@platinumSubtitle": {
+        "description": "Subtítulo del paquete Platino"
+    },
+    "platinumPrice": "Precio personalizado",
+    "@platinumPrice": {
+        "description": "Precio del paquete Platino"
+    },
+    "platinumFeat1": "Cobertura ilimitada",
+    "@platinumFeat1": {
+        "description": "Característica 1 del paquete Platino"
+    },
+    "platinumFeat2": "Análisis IA avanzado",
+    "@platinumFeat2": {
+        "description": "Característica 2 del paquete Platino"
+    },
+    "platinumFeat3": "Equipo dedicado",
+    "@platinumFeat3": {
+        "description": "Característica 3 del paquete Platino"
+    },
+    "platinumFeat4": "Entrega en tiempo real",
+    "@platinumFeat4": {
+        "description": "Característica 4 del paquete Platino"
+    },
+    "platinumFeat5": "Soporte concierge",
+    "@platinumFeat5": {
+        "description": "Característica 5 del paquete Platino"
+    },
+    "platinumFeat6": "Generador personalizado de destacados",
+    "@platinumFeat6": {
+        "description": "Característica 6 del paquete Platino"
+    },
+    "enquireNow": "Consultar Ahora",
+    "@enquireNow": {
+        "description": "Botón para consultar más información"
+    },
+    "corporateEventsTitle": "Eventos Corporativos",
+    "@corporateEventsTitle": {
+        "description": "Título de sección de eventos corporativos"
+    },
+    "corporateEventsSub": "Soluciones personalizadas para eventos grandes",
+    "@corporateEventsSub": {
+        "description": "Subtítulo de sección de eventos corporativos"
     }
 }

@@ -60,5 +60,66 @@
     "subOnDemandAccess": "Relive the glory anytime. Full matches and curated highlights are hosted directly on our website for easy viewing.",
     "@subOnDemandAccess": {
         "description": "Subtitle of On-Demand Access"
-    }
+    },
+    "ourServices": "Our Services",
+    "@ourServices": {
+        "description": "Title of section for services page"
+    },
+    "subOurServices": "Every package includes: \nProfessional equipment setup, full match coverage and seamless digital delivery",
+    "@subOurServices": {
+        "description": "Subtitle of Our Services"
+    },
+    "bronzePackage": "Bronze Package",
+    "@bronzePackage": {
+        "description": "Title of Bronze Package"
+    },
+    "silverPackage": "Silver Package",
+    "@silverPackage": {
+        "description": "Title of Silver Package"
+    },
+    "goldPackage": "Gold Package",
+    "@goldPackage": {
+        "description": "Title of Gold Package"
+    },
+    "platinumPackage": "Platinum Package",
+    "@platinumPackage": {
+        "description": "Title of Platinum Package"
+    },
+    "bronzeSubtitle": "Raw Footage Only",
+    "bronzePrice": "£130",
+    "bronzeFeat1": "Match filmed using VEO 2 (A.I. sports camera)",
+    "bronzeFeat2": "Single-camera recording",
+    "bronzeFeat3": "Raw match footage (no edits, overlays, or replays)",
+    "bronzeFeat4": "Suitable for training & review",
+    "bronzeFeat5": "Suitable for training & review",
+    "bronzeFeat6": "Local coverage (London & surrounding areas)",
+    "silverSubtitle": "Standard Highlights & Match Edits",
+    "silverPrice": "£250",
+    "silverFeat1": "3 camera recording (VEO 2 + 2 goal cameras)",
+    "silverFeat2": "Edited full match + 2 goal video",
+    "silverFeat3": "Highlights video included",
+    "silverFeat4": "Team lineups & scoreboard overlay",
+    "silverFeat5": "Multi-angle replays & goalscorer graphics",
+    "goldSubtitle": "Premium Multi-Cam + Commentary",
+    "goldPrice": "£350",
+    "goldFeat1": "4/5-camera recording (VEO 2 video)",
+    "goldFeat2": "Edited full match (4 cams + camcorder)",
+    "goldFeat3": "Highlights video included",
+    "goldFeat4": "Team lineups, scoreboard & replays",
+    "goldFeat5": "Goalscorer graphics & match visuals",
+    "goldFeat6": "Highlights commentary included",
+    "platinumSubtitle": "Full Media & Player Analytics",
+    "platinumPrice": "£450",
+    "platinumFeat1": "4/5 camera premium recording setup",
+    "platinumFeat2": "Edited full video included",
+    "platinumFeat3": "Highlights video included",
+    "platinumFeat4": "Full player statistics & replays",
+    "platinumFeat5": "Full player statistics & analytics",
+    "platinumFeat6": "Player profile videos & personalised playlists",
+    "enquireNow": "Enquire Now",
+    "@enquireNow": {
+        "description": "Label for enquire now button"
+    },
+    "corporateEventsTitle": "Corporate & Company Football Events",
+    "corporateEventsSub": "We also support company tournaments, internal leagues and corporate football events, including match filming, highlights and brand media delivery."
 }

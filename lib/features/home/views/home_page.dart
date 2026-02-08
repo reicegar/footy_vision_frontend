@@ -202,7 +202,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> getPages(double height) {
-    return [AboutUsPage(height: height, scrollController: controller.scrollController), ServicesPage(height: height), ContactUsPage(height: height)];
+    return [
+      AboutUsPage(height: height, scrollController: controller.scrollController),
+      ServicesPage(height: height, scrollController: controller.scrollController),
+      ContactUsPage(height: height),
+    ];
   }
 
   double clampDouble(double value, double min, double max) {

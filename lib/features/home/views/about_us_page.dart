@@ -302,7 +302,7 @@ class FeatureTile extends StatelessWidget {
         title,
         style: isMobile ? theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold) : theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(subtitle, softWrap: true, style: isMobile ? theme.textTheme.bodyMedium : theme.textTheme.bodyLarge),
+      subtitle: Text(subtitle, softWrap: true, style: isMobile ? theme.textTheme.bodyLarge : theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.normal)),
     );
   }
 }
