@@ -88,7 +88,7 @@ class _ServicesPageState extends State<ServicesPage> {
     final t = AppLocalizations.of(context)!;
     final double topPart = CurveTween(curve: const Interval(0.0, 0.6, curve: Curves.easeOut)).transform(_scrollProgress);
 
-    final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
+    //final double bottomPart = CurveTween(curve: const Interval(0.6, 1.0, curve: Curves.easeOut)).transform(_scrollProgress);
 
     return SingleChildScrollView(
       child: Column(
@@ -97,7 +97,7 @@ class _ServicesPageState extends State<ServicesPage> {
           const SizedBox(height: 20),
           Text(t.subOurServices, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.normal)),
           const SizedBox(height: 50),
-          AnimatedLine(progress: bottomPart),
+          AnimatedLine(progress: topPart),
           const SizedBox(height: 50),
           Row(
             spacing: 10,
@@ -112,6 +112,10 @@ class _ServicesPageState extends State<ServicesPage> {
               ),
             ],
           ),
+          const SizedBox(height: 50),
+          _buildTitleText(title: t.corporateEventsTitle.toUpperCase(), maxSize: 40.0, align: TextAlign.center, textColor: FColors.orange),
+          const SizedBox(height: 20),
+          Text(t.corporateEventsSub, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.normal)),
         ],
       ),
     );
@@ -139,6 +143,7 @@ class _ServicesPageState extends State<ServicesPage> {
 
   Widget packageTile(String title, String subtitle, List<String> features) {
     final theme = Theme.of(context);
+    final t = AppLocalizations.of(context)!;
     return Card(
       elevation: 4.0,
       clipBehavior: Clip.antiAlias,
@@ -185,7 +190,7 @@ class _ServicesPageState extends State<ServicesPage> {
             ),
             const SizedBox(height: 20),
 
-            Center(child: FButton(label: 'Enquire now')),
+            Center(child: FButton(label: t.enquireNow)),
           ],
         ),
       ),
